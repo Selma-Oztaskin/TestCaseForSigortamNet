@@ -1,0 +1,72 @@
+﻿@model InsuranceOffer.Test.Case.DataLayer.Model.CustomerInfo
+<head>
+    <script src="~/js/jquery-3.4.1.min.js"></script>
+</head>
+<div class="tab-content">
+    <div class="tab-pane active" id="tab_0">
+        <div class="portlet box green">
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form  method="post" action="TeklifAl/AllOffers" class="form-horizontal">
+                    <input asp-for="@Model.ID" type="hidden" id="custID" />
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">TC Kimlik Numarası</label>
+                            <div class="col-md-4">
+                                <input asp-for="@Model.TCKN" class="form-control" placeholder="TCKN" id="tckn">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Plaka</label>
+                            <div class="col-md-4">
+                                <input asp-for="@Model.Plaka" class="form-control" placeholder="Plaka" id="plaka">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Ruhsat Seri Kodu</label>
+                            <div class="col-md-4">
+                                <input asp-for="@Model.RuhsatSeriKodu" class="form-control" placeholder="Ruhsat Seri Kodu" id="ruhsatKodu">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Ruhsat Seri No</label>
+                            <div class="col-md-4">
+                                <input asp-for="@Model.RuhsatSeriNo" class="form-control" placeholder="Ruhsat Seri No" id="ruhsatSeriNo">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <button id="updateAjax" class="btn green"><i class="fa fa-check"></i>Teklifleri Göster</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var field = document.getElementById('ruhsatKodu');
+
+    field.onmouseup = function () {
+        var tckn = document.getElementById("tckn").value;
+        var plaka = document.getElementById('plaka').value;
+        $.ajax({
+            type: 'GET',
+            url: '/TeklifAl/GetCustomerInfo',
+            data: { tckn: tckn, plaka: plaka },
+            contentType: "application/json",
+            success: function (result) {
+                if (result != null) {
+                    console.log(result);
+                    console.log(result.ruhsatSeriNo);
+                    document.getElementById('ruhsatKodu').value = result.ruhsatSeriKodu;
+                    document.getElementById('ruhsatSeriNo').value = result.ruhsatSeriNo;
+                    document.getElementById('custID').value = result.id;
+                }
+            }
+        });
+    }
+</script>

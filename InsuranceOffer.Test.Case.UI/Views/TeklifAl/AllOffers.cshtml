@@ -1,0 +1,27 @@
+﻿@model List<InsuranceOffer.Test.Case.DataLayer.Model.CustomerInsuranceOffers>
+
+
+
+    <div><b>Telkif Listesi</b><br /></div>
+    <table class="table table-bordered table-responsive table-hover">
+        <tr>
+            <th>Firma Adı </th>
+            <th>Firma Logosu </th>
+            <th>Teklif Açıklaması </th>
+            <th>Teklif Tutarı</th>
+            <th>plaka</th>
+        </tr>
+        @foreach (var d in Model)
+        {
+            <tr>
+                <td>@d.FirmaAdi</td>
+                <td>@d.FirmaLogosu</td>
+                <td>@d.TeklifAciklamasi</td>
+                <td>@d.TeklifTutari</td>
+                <td>@d.Plaka</td>
+
+            </tr>
+        }
+    </table>
+
+
